@@ -8,6 +8,8 @@ use App\Http\Controllers\Backend\StaticPageController;
 use App\Http\Controllers\Backend\CKEditorController;
 use App\Http\Controllers\Backend\ContactUsController;
  use App\Http\Controllers\Backend\FaqController;
+ use App\Http\Controllers\Backend\NewsController;
+ 
 
 
 
@@ -55,6 +57,14 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->name('admin.')
     Route::get('/faq/edit/{id}', [FaqController::class, 'edit'])->name('faq.edit');
     Route::put('/faq/update/{id}', [FaqController::class, 'update'])->name('faq.update');
     Route::delete('/faq/delete/{id}', [FaqController::class, 'destroy'])->name('faq.destroy');
+
+    Route::get('/news', [NewsController::class, 'index'])->name('news.index');
+    Route::get('/news/create', [NewsController::class, 'create'])->name('news.create');
+    Route::post('/news/store', [NewsController::class, 'store'])->name('news.store');
+    Route::get('/news/edit/{id}', [NewsController::class, 'edit'])->name('news.edit');
+    Route::put('/news/update/{id}', [NewsController::class, 'update'])->name('news.update');
+    Route::delete('/news/delete/{id}', [NewsController::class, 'destroy'])->name('news.destroy');
+   
 
 
 });

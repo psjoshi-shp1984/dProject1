@@ -27,21 +27,18 @@
             <!-- Question Field -->
             <div class="mb-3">
                 <label>Question</label>
-                <textarea name="question" class="form-control" rows="4" required>
-                    {{ old('question', $faq->question ?? '') }}
-                </textarea>
+                <textarea name="question" class="form-control" rows="4" required>{{ trim($faq->question ?? '') }}</textarea>
+                
             </div>
 
             <!-- Answer Field -->
             <div class="mb-3">
                 <label>Answer</label>
-                <textarea name="answer" class="form-control" rows="4" required>
-                    {{ old('answer', $faq->answer ?? '') }}
-                </textarea>
+                <textarea name="answer" class="form-control" rows="4" required>{{ trim($faq->answer ?? '') }}</textarea>
             </div>
              <div class="mb-3">
                 <label>Sort Order</label>
-                <input type="number" name="sort_order" class="form-control" value="{{ $faq->order_no }}">
+                <input type="number" name="order_no" class="form-control" value="{{ $faq->order_no }}">
             </div>
             <div class="mb-3">
                 <label>Status</label>
@@ -81,61 +78,34 @@ $(document).ready(function () {
         console.error('CKEditor failed to load.');
     }
 
-    // ✅ Custom validation rules
-    $.validator.addMethod("lettersOnly", function(value, element) {
-        return this.optional(element) || /^[A-Za-z\s]+$/.test(value);
-    }, "Only letters and spaces are allowed.");
-
+    
    
-
-    $.validator.addMethod("slugFormat", function(value, element) {
-        return this.optional(element) || /^[a-z0-9-]+$/.test(value);
-    }, "Slug can only contain lowercase letters, numbers, and hyphens.");
-
-    $.validator.addMethod("imageExtension", function(value, element) {
-        return this.optional(element) || /\.(jpe?g|png|gif|webp)$/i.test(value);
-    }, "Allowed formats: jpeg, jpg, png, gif, webp.");
 
     
     // ✅ Initialize validation
     $("#faqPageEditForm").validate({
         ignore: [],
         rules: {
-            page_name: {
+             page_name: {
                 required: true,
                 lettersOnly: true
             },
-            page_slug: {
+            question: {
                 required: true,
-                slugFormat: true,
-                uniqueSlug: true
             },
-            image: {
-                imageExtension: true
+            answer: {
+                required: true,
             },
-            image_name: {
-                lettersOnly: true
-            },
-            image_hover_text: {
-                lettersOnly: true
-            },
-            page_descriptions: {
-                required: function() {
-                    CKEDITOR.instances.editor.updateElement();
-                    return true;
-                }
-            }
         },
         messages: {
-            page_name: {
+             page_name: {
                 required: "Please enter a Page Name."
             },
             page_slug: {
-                required: "Please enter a Page Slug.",
-                uniqueSlug: "This slug is already in use."
+                required: "Please enter a Question.",
             },
-            page_descriptions: {
-                required: "Please enter page content."
+            answer: {
+                required: "Please enter Answer."
             }
         },
         errorClass: "text-danger mt-1",

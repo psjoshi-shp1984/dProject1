@@ -42,9 +42,15 @@
             <input type="url" name="link" class="form-control">
         </div>
         <div class="mb-3">
-            <label>Type</label>
-            <input type="text" name="type" class="form-control" value="homepage">
+            <label>Page Type</label>
+            <select name="type" class="form-control">
+                <option value="" selected>Please Select</option>
+                <option value="homepage">Home</option>
+                <option value="tenda_partner">Tenda Partner</option>
+                <option value="si_partner">SI Partner</option>
+            </select>
         </div>
+
         <div class="mb-3">
             <label>Status</label>
             <select name="status" class="form-control">
@@ -130,6 +136,9 @@ $.validator.addMethod("uniqueSortOrder", function (value, element) {
                 required: true,
                 lettersOnly: true
             },
+            type: {
+                required: true,
+            },
             image: {
                 required: true,
                 imageExtension: true
@@ -148,6 +157,9 @@ $.validator.addMethod("uniqueSortOrder", function (value, element) {
             },
             image: {
                 required: "Please upload an image."
+            },
+            type: {
+                required: "Please Select type."
             },
             link: {
                 url: "Please enter a valid URL (e.g., https://example.com)."

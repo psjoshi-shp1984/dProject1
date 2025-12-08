@@ -45,8 +45,10 @@ class FaqController extends Controller
     /**
      * Show the form for editing the specified FAQ.
      */
-    public function edit(Faq $faq)
+    public function edit($id)
     {
+        $faq = Faq::findOrFail($id);
+      // echo "<pre>";print_r($faq);die;
         return view('faqs.edit', compact('faq'));
     }
 
@@ -62,7 +64,7 @@ class FaqController extends Controller
             'order_no' => 'nullable|integer',
             'status' => 'required|in:active,inactive',
         ]);
-
+     //   echo "<pre>validated=";print_r($validated);die;
         $faq->update($validated);
         return redirect()->route('admin.faq.index')->with('success', 'FAQ updated successfully!');
     }

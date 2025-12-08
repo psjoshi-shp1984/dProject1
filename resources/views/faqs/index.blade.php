@@ -54,7 +54,11 @@
                                 </button>
                             </td>
 
-                            
+                            <td>
+                                <span class="">
+                                    {{ $faq->order_no }}
+                                </span>
+                            </td>
 
                             <td>
                                 <span class="badge {{ $faq->status == 'active' ? 'bg-success' : 'bg-secondary' }}">

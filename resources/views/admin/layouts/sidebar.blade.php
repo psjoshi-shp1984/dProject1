@@ -9,6 +9,8 @@
         <a href="{{ route('admin.static_pages.index') }}">Static Page</a>
         <a href="{{ route('admin.contact_us.index') }}">Contact US</a>
         <a href="{{ route('admin.faq.index') }}">Faq</a>
+        <a href="{{ route('admin.news.index') }}">News</a>
+        
 
         
        

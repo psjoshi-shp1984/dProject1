@@ -51,6 +51,14 @@
             <input type="text" name="type" class="form-control" value="{{ $slider->type }}">
         </div>
         <div class="mb-3">
+            <label>Page Type</label>
+         <select name="type" class="form-control">
+            <option value="homepage" {{ $slider->type == 'homepage' ? 'selected' : '' }}>Home</option>
+            <option value="tenda_partner" {{ $slider->type == 'tenda_partner' ? 'selected' : '' }}>Tenda Partner</option>
+            <option value="si_partner" {{ $slider->type == 'si_partner' ? 'selected' : '' }}>SI Partner</option>
+        </select>
+        </div>
+        <div class="mb-3">
             <label>Status</label>
             <select name="status" class="form-control">
                 <option value="1" {{ $slider->status ? 'selected' : '' }}>Active</option>
@@ -137,8 +145,11 @@ $.validator.addMethod("uniqueSortOrder", function (value, element) {
                 lettersOnly: true
             },
             image: {
-             
+                required: true,
                 imageExtension: true
+            },
+            type: {
+                required: true,
             },
             link: {
                 url: true
@@ -154,6 +165,9 @@ $.validator.addMethod("uniqueSortOrder", function (value, element) {
             },
             image: {
                 required: "Please upload an image."
+            },
+            type: {
+                required: "Please Select type."
             },
             link: {
                 url: "Please enter a valid URL (e.g., https://example.com)."

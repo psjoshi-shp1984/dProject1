@@ -20,17 +20,20 @@
         <h3>Add New Page</h3>
         <form id="faqCreatForm" action="{{ route('admin.faq.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
-
             <div class="mb-3">
                 <label>Page Name</label>
-                <input type="text" name="page_name" class="form-control" required>
+                <select name="page_name" class="form-control" required>
+                    <option value="" selected>Please Select</option>
+                    <option value="homepage">Home</option>
+                    <option value="tenda_partner">Tenda Partner</option>
+                    <option value="si_partner">SI Partner</option>
+                </select>
             </div>
-
             <div class="mb-3">
                 <label>Question</label>
                 <textarea name="question" class="form-control" rows="4" required></textarea>
-
             </div>
+            
             <div class="mb-3">
                 <label>Answer</label>
                 <textarea name="answer" class="form-control" rows="4" required></textarea>
@@ -67,16 +70,7 @@ $(document).ready(function () {
     $.validator.addMethod("lettersOnly", function(value, element) {
         return this.optional(element) || /^[A-Za-z\s]+$/.test(value);
     }, "Only letters and spaces are allowed.");
-
-   
-
-    $.validator.addMethod("slugFormat", function(value, element) {
-        return this.optional(element) || /^[a-z0-9-]+$/.test(value);
-    }, "Slug can only contain lowercase letters, numbers, and hyphens.");
-
-    $.validator.addMethod("imageExtension", function(value, element) {
-        return this.optional(element) || /\.(jpe?g|png|gif|webp)$/i.test(value);
-    }, "Allowed formats: jpeg, jpg, png, gif, webp.");
+    
     // ✅ Initialize validation
     $("#faqCreatForm").validate({
         ignore: [],
@@ -85,37 +79,23 @@ $(document).ready(function () {
                 required: true,
                 lettersOnly: true
             },
-            page_slug: {
+            question: {
                 required: true,
-                slugFormat: true,
-                uniqueSlug: true
             },
-            image: {
-                imageExtension: true
+            answer: {
+                required: true,
             },
-            image_name: {
-                lettersOnly: true
-            },
-            image_hover_text: {
-                lettersOnly: true
-            },
-            page_descriptions: {
-                required: function() {
-                    CKEDITOR.instances.editor.updateElement();
-                    return true;
-                }
-            }
+           
         },
         messages: {
             page_name: {
                 required: "Please enter a Page Name."
             },
             page_slug: {
-                required: "Please enter a Page Slug.",
-                uniqueSlug: "This slug is already in use."
+                required: "Please enter a Question.",
             },
-            page_descriptions: {
-                required: "Please enter page content."
+            answer: {
+                required: "Please enter Answer."
             }
         },
         errorClass: "text-danger mt-1",

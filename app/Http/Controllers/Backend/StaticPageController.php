@@ -95,6 +95,9 @@ class StaticPageController extends Controller
     public function destroy($id)
     {
         $page = StaticPage::findOrFail($id);
+        if ($page->image) {
+            \Storage::disk('public')->delete($page->image);
+        }
         $page->delete();
         return redirect()->route('admin.static_pages.index')->with('success', 'Page deleted successfully!');
     }
